@@ -5,111 +5,82 @@ public class AstroConselho {
     public static void main(String[] args) {
         Scanner ler = new Scanner(System.in);
 
-        
         System.out.println("Informe seu nome: ");
-    String nome = ler.nextLine();
-    if (nome.length() <= 8) {
-        System.out.println("insira seu sobrenome também.");
-        return;
-    }
-
-    int sexo;
-    System.out.println("Informe seu sexo (1 - Feminino, 2 - Masculino): ");
-    sexo = ler.nextInt();
-    if (sexo != 1 && sexo != 2) {
-        System.out.println("Por favor, insira um valor válido para o sexo xiurzao.");
-        return;
-    }
-
-    int estadoCivil;
-    System.out.println("Informe seu estado civil (1 - Solteiro(a), 2 - Casado(a), 3 - Divorciado(a)): ");
-    estadoCivil = ler.nextInt();
-    if (estadoCivil < 1 || estadoCivil > 3) {
-        System.out.println("Por favor, insira um valor válido para o estado civil xiruzão.");
-        return;
-    }
-        System.out.println("Informe o dia de nascimento: ");
-        int diaNascimento = ler.nextInt();
-        if (diaNascimento < 1 || diaNascimento > 31) {
-            System.out.println("que dia é esse xiru.");
+        String nome = ler.nextLine();
+        if (nome.length() <= 8) {
+            System.out.println("Insira seu sobrenome também.");
             return;
         }
 
-        System.out.println("Informe o mês de nascimento: ");
-        int mesNascimento = ler.nextInt();
-        if (mesNascimento < 1 || mesNascimento > 12) {
-            System.out.println("que mês é esse xiru.");
+        System.out.println("Informe seu sexo (1 - Feminino, 2 - Masculino): ");
+        int sexo = ler.nextInt();
+        if (sexo != 1 && sexo != 2) {
+            System.out.println("Por favor, insira um valor válido para o sexo.");
+            return;
+        }
+        System.out.println("Informe seu estado civil (1 - Solteiro(a), 2 - Casado(a), 3 - Divorciado(a)): ");
+        int estadoCivil = ler.nextInt();
+        if (estadoCivil < 1 || estadoCivil > 3) {
+            System.out.println("Por favor, insira um valor válido para o estado civil.");
+            return;
+        } System.out.println("Informe o dia que você nasceu: ");
+        int diaNas = ler.nextInt();
+        if (diaNas < 1 || diaNas > 31) {
+            System.out.println("para de sacanear xiruzão.");
+            return;
+        }
+        System.out.println("Informe o mês que você nasceu: ");
+        int mesNas = ler.nextInt();
+        if (mesNas < 1 || mesNas > 12) {
+            System.out.println("para de sacanear xiruzão.");
+            return;
+        }
+         System.out.println("Informe o ano que voce nasceu: ");
+        int anoNas = ler.nextInt();
+        if (anoNas < 1900 || anoNas > 2024) {
+            System.out.println("ou tu já morreu ou ainda não nasceu xiruzão.");
             return;
         }
 
-        System.out.println("Informe o ano de nascimento: ");
-        int anoNascimento = ler.nextInt();
-       
-        if (anoNascimento < 1900 || anoNascimento > 2024) {
-            System.out.println("mas tu é velho ein xiruzão.");
-            return;
-        }
-
-       
         System.out.println("Informe seu ascendente: ");
-        String ascendente = ler.nextLine(); 
-        ascendente = ler.nextLine();
+        String ascendente = ler.next();
 
-        
-     
-        int idade = Idade(anoNascimento, mesNascimento, diaNascimento);
-        String signo = Signo(mesNascimento, diaNascimento);
-        int numSorte = NumeroSorte();
-        String estadoCivils = "";
-        switch (estadoCivil) {
-            case 1:
-                estadoCivils = "Solteiro(a)";
-                break;
-            case 2:
-                estadoCivils = "Casado(a)";
-                break;
-            case 3:
-                estadoCivils = "Divorciado(a)";
-                break;
-        }
+        int idade = Idade(anoNas, mesNas, diaNas);
+        String signo = Signo(mesNas, diaNas);
+        int numerodasorte = Sorte();
+        String estadoCivils = EstadoCivil(estadoCivil);
 
-        if (sexo == 1) {
-            System.out.println("Sra." + nome + ", " + estadoCivils + ", nascida no dia " + diaNascimento + "-" + mesNascimento + "-" + anoNascimento +
-                    ", é do signo de " + signo + " - você tem " + idade + " anos - seu nº da sorte é " + numSorte + " e seu ascendente é " + ascendente + ".");
-        } else {
-            System.out.println("Sr." + nome + ", " + estadoCivils + ", nascido no dia " + diaNascimento + "-" + mesNascimento + "-" + anoNascimento +
-                    ", é do signo de " + signo + " - você tem " + idade + " anos - seu nº da sorte é " + numSorte + " e seu ascendente é " + ascendente + ".");
-        }
+        String pronomes = (sexo == 1) ? "Sra." : "Sr.";
+        System.out.println(pronomes + nome + ", " + estadoCivils + ", nascido(a) em " + diaNas + "-" + mesNas + "-" + anoNas +
+                ", é do signo de " + signo + ", tem " + idade + " anos, seu número da sorte é " + numerodasorte + " e seu ascendente é " + ascendente + ".");
     }
 
-   
-    private static int Idade(int ano, int mes, int dia) {
+    private static int Idade(int anoNasc, int mes, int dia) {
         Calendar hoje = Calendar.getInstance();
-        int diaAtual = hoje.get(Calendar.DATE);
-        int mesAtual = hoje.get(Calendar.MONTH) + 1; 
-        int anoAtual = hoje.get(Calendar.YEAR);
+        int diaHJ = hoje.get(Calendar.DATE);
+        int mesHJ = hoje.get(Calendar.MONTH) + 1; 
+        int anoHJ = hoje.get(Calendar.YEAR);
 
-        int idade = anoAtual - ano;
-        if (mesAtual < mes || (mesAtual == mes && diaAtual < dia)) {
+        int idade = anoHJ - anoNasc;
+        if (mesHJ < mes || (mesHJ == mes && diaHJ < dia)) {
             idade--; 
         }
         return idade;
-        
     }
 
-   
     private static String Signo(int mes, int dia) {
-    String[] signos = {"Capricórnio", "Aquário", "Peixes", "Áries", "Touro", "Gêmeos", "Câncer", "Leão", "Virgem", "Libra", "Escorpião", "Sagitário"};
-    int[] dias = {22, 20, 20, 20, 20, 21, 22, 22, 22, 22, 21, 21};
-    return signos[(mes + (dia < dias[mes - 0] ? 10 : 11)) % 12];
-}
-    
+        String[] signos = {"Capricórnio", "Aquário", "Peixes", "Áries", "Touro", "Gêmeos", "Câncer", "Leão", "Virgem", "Libra", "Escorpião", "Sagitário"};
+        int[] dias = {22, 20, 20, 20, 20, 21, 22, 22, 22, 22, 21, 21};
+        int i = (mes + (dia < dias[mes - 1] ? 10 : 11)) % 12;
+        return signos[i];
+    }
 
-       
+    private static int Sorte() {
+        return (int) (0 + Math.random() * 99);
+    }
 
-
-    private static int NumeroSorte() {
-        return (int) (1 + Math.random() * 99);
+    private static String EstadoCivil(int estadoCivil) {
+        String[] estados = {"Solteiro(a)", "Casado(a)", "Divorciado(a)"};
+        return estados[estadoCivil - 1];
     }
 }
-
